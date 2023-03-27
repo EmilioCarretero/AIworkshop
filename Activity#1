@@ -1,0 +1,35 @@
+def predictDayBusy(array, day):
+	numberOfBusy = 0
+	numberOfTotal = 0
+	for row in array:
+		if row[0] == day:
+			numberOfTotal = numberOfTotal + 1
+			if row[2] == "Yes":
+		 		numberOfBusy = numberOfBusy + 1
+
+	return numberOfBusy / numberOfTotal * 100
+
+def predictTempBusy(array, temp):
+	numberOfBusy = 0
+	numberOfTotal = 0
+	for row in array:
+		if row[1] == temp:
+			numberOfTotal = numberOfTotal + 1
+			if row[2] == "Yes":
+		 		numberOfBusy = numberOfBusy + 1
+
+	return numberOfBusy / numberOfTotal * 100
+
+def predictBusy(array, day, temp):
+	return (predictDayBusy(array, day) + predictTempBusy(array, temp)) / 2
+
+f = open("data.csv", "r")
+
+array = []
+
+for line in f:
+	combo = line.strip().split(',')
+	array.append(combo)
+	#print(combo)
+
+print(predictBusy(array, "Friday", "Very Hot"))
